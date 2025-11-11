@@ -96,12 +96,13 @@ export interface Coordinates {
 // https://api.openweathermap.org/data/2.5/forecast?q=addis%20ababa&appid=ba73b0320fa0397e0a15c08563797e1a&cnt=56
 export default function Home() {
 
+  const API_KEY = process.env.WEATHER_API_KEY;
   const [place, setPlace] = useAtom(placeAtom)
   const [loading, ] = useAtom(loadingCityAtom)
   const { isPending, error, data, refetch } = useQuery<WeatherResponse>({
     queryKey: ['repoData'],
     queryFn: async () => {
-      const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&cnt=56`)
+      const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${API_KEY}&cnt=56`)
 
       return data;
     }

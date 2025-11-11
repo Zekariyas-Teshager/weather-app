@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { FaCloudSunRain } from "react-icons/fa6";
-import { MdLocationPin } from 'react-icons/md';
-import { RiUserLocationFill } from 'react-icons/ri';
+import { MdLocationPin, MdOutlineMyLocation } from 'react-icons/md';
 import SearchBox from './SearchBox';
 import axios from 'axios';
 import { useAtom } from 'jotai';
 import { loadingCityAtom, placeAtom } from '@/app/atom';
 
 type Props = { location?: string }
-const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
+const API_KEY = process.env.WEATHER_API_KEY;
 
 export default function Navbar({ location }: Props) {
     const [city, setCity] = useState('');
@@ -101,7 +100,7 @@ export default function Navbar({ location }: Props) {
                     </div>
                     {/*   */}
                     <section className='flex gap-2 items-center'>
-                        <RiUserLocationFill
+                        <MdOutlineMyLocation
                             title="Your Current Location"
                             onClick={handleCurrentLocation}
                             className='text-2xl text-gray-400 hover:opacity-80 cursor-pointer' />
