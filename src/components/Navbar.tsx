@@ -9,6 +9,23 @@ import { loadingCityAtom, placeAtom } from '@/app/atom';
 type Props = { location?: string }
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
+interface WeatherItem {
+  name: string;
+  id: number;
+  sys: {
+    country: string;
+  };
+  coord: {
+    lat: number;
+    lon: number;
+  };
+}
+
+interface WeatherApiResponse {
+  list: WeatherItem[];
+  count: number;
+}
+
 export default function Navbar({ location }: Props) {
     const [city, setCity] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -25,7 +42,7 @@ export default function Navbar({ location }: Props) {
             try {
                 const response = await axios.get(`https://api.openweathermap.org/data/2.5/find?q=${value}&appid=${API_KEY}`);
 
-                const suggestions = response.data.list.map((item: any) => item.name);
+                const suggestions = response.data.list?.map((item: WeatherItem) => item.name);
                 setSuggestions(suggestions);
                 setError(null); // Clear any previous errors
                 setShowSuggestions(true);
@@ -83,7 +100,7 @@ export default function Navbar({ location }: Props) {
                     setError('Error fetching current location');
                     setLoadingCity(false);
                 }
-            }, (error) => {
+            }, () => {
                 setError('Error fetching current location');
                 setLoadingCity(false);
             });
