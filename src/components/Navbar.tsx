@@ -7,7 +7,7 @@ import { useAtom } from 'jotai';
 import { loadingCityAtom, placeAtom } from '@/app/atom';
 
 type Props = { location?: string }
-const API_KEY = process.env.WEATHER_API_KEY;
+const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
 export default function Navbar({ location }: Props) {
     const [city, setCity] = useState('');
@@ -103,7 +103,7 @@ export default function Navbar({ location }: Props) {
                         <MdOutlineMyLocation
                             title="Your Current Location"
                             onClick={handleCurrentLocation}
-                            className='text-2xl text-gray-400 hover:opacity-80 cursor-pointer' />
+                            className='text-2xl text-gray-400 hover:text-gray-900 cursor-pointer' />
                         <MdLocationPin className='text-3xl' />
                         <p className='text-slate-900/80 text-sm'>{location}</p>
                         <div className='relative hidden md:flex'>

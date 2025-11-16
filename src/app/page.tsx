@@ -96,7 +96,7 @@ export interface Coordinates {
 // https://api.openweathermap.org/data/2.5/forecast?q=addis%20ababa&appid=ba73b0320fa0397e0a15c08563797e1a&cnt=56
 export default function Home() {
 
-  const API_KEY = process.env.WEATHER_API_KEY;
+  const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
   const [place, setPlace] = useAtom(placeAtom)
   const [loading, ] = useAtom(loadingCityAtom)
   const { isPending, error, data, refetch } = useQuery<WeatherResponse>({
@@ -104,7 +104,11 @@ export default function Home() {
     queryFn: async () => {
       const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=${API_KEY}&cnt=56`)
 
-      return data;
+      if (data.cod !== "200") {
+        throw new Error('Error fetching weather data');
+      } else {
+        return data;
+      }
     }
   })
 
@@ -134,6 +138,11 @@ export default function Home() {
   if (isPending) return <div className="flex flex-col items-center justify-center gap-4 bg-gray-100 min-h-screen">
     <p className="text-center mt-20 font-bold text-2xl animate-bounce">
       Loading...
+    </p>
+  </div>
+  if (error) return <div className="flex flex-col items-center justify-center gap-4 bg-gray-100 min-h-screen">
+    <p className="text-center mt-20 font-bold text-2xl text-red-500">
+      Error fetching weather data.
     </p>
   </div>
   return (
