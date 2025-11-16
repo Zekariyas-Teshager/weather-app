@@ -3,7 +3,7 @@
 This repository contains a weather application built with Next.js that uses the OpenWeather API to fetch weather data. The app provides current weather and forecasts for upcoming dates.
 
 ## Live
-Live deployment: [Add deployment link here]()
+Live deployment: [https://weather-app-zeki.netlify.app/]()
 
 ## Features
 - Fetches current weather and upcoming forecasts from the OpenWeather API
